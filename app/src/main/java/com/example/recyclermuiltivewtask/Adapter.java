@@ -16,80 +16,72 @@ import java.util.List;
 
 import static com.example.recyclermuiltivewtask.ItemLayout.LayoutOne;
 import static com.example.recyclermuiltivewtask.ItemLayout.LayoutTwo;
-public class Adapter extends RecyclerView.Adapter{
-    Context context;
+
+public class Adapter extends RecyclerView.Adapter {
+
     private List<ItemLayout> itemClassList;
 
-public Adapter(List<ItemLayout> itemClassList)
-        {
+    public Adapter(List<ItemLayout> itemClassList) {
         this.itemClassList = itemClassList;
-        }
+    }
 
-@Override
-public int getItemViewType(int position)
-        {
+    @Override
+    public int getItemViewType(int position) {
         switch (itemClassList.get(position).getViewType()) {
-        case 0:
-        return LayoutOne;
-        case 1:
-        return LayoutTwo;
-default:
-        return -1;
+            case 0:
+                return LayoutOne;
+            case 1:
+                return LayoutTwo;
+            default:
+                return -1;
         }
+    }
+
+
+    class LayoutOneViewHolder
+            extends RecyclerView.ViewHolder {
+
+        private TextView textview;
+        private LinearLayout linearLayout;
+
+        public LayoutOneViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textview = itemView.findViewById(R.id.text);
+            linearLayout
+                    = itemView.findViewById(R.id.linearlayout1);
         }
 
-//  classes layout one  ViewHolder.
+        private void setView(String text) {
 
-class LayoutOneViewHolder
-        extends RecyclerView.ViewHolder {
-
-    private TextView textview;
-    private LinearLayout linearLayout;
-
-    public LayoutOneViewHolder(@NonNull View itemView)
-    {
-        super(itemView);
-        textview = itemView.findViewById(R.id.text);
-        linearLayout
-                = itemView.findViewById(R.id.linearlayout1);
+            textview.setText(text);
+        }
     }
 
-    private void setView(String text)
-    {
 
-        textview.setText(text);
+    class LayoutTwoViewHolder
+            extends RecyclerView.ViewHolder {
+
+        private ImageView icon;
+        private LinearLayout linearLayout;
+
+        public LayoutTwoViewHolder(@NonNull View itemView) {
+            super(itemView);
+            icon = itemView.findViewById(R.id.image);
+            linearLayout
+                    = itemView.findViewById(R.id.linearlayout2);
+        }
+
+        private void setViews(int image) {
+            icon.setImageResource(image);
+
+        }
     }
-}
-
-//  class  layout two
-
-class LayoutTwoViewHolder
-        extends RecyclerView.ViewHolder {
-
-    private ImageView icon;
-    private LinearLayout linearLayout;
-
-    public LayoutTwoViewHolder(@NonNull View itemView)
-    {
-        super(itemView);
-        icon = itemView.findViewById(R.id.image);
-        linearLayout
-                = itemView.findViewById(R.id.linearlayout2);
-    }
-
-    private void setViews(int image)
-    {
-        icon.setImageResource(image);
-
-    }
-}
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder
     onCreateViewHolder(@NonNull ViewGroup parent,
-                       int viewType)
-    {
+                       int viewType) {
         switch (viewType) {
             case LayoutOne:
                 View layoutOne
@@ -112,25 +104,23 @@ class LayoutTwoViewHolder
     @Override
     public void onBindViewHolder(
             @NonNull RecyclerView.ViewHolder holder,
-            int position)
-    {
+            int position) {
 
         switch (itemClassList.get(position).getViewType()) {
             case LayoutOne:
 
                 String text
                         = itemClassList.get(position).getText();
-                ((LayoutOneViewHolder)holder).setView(text);
-                ((LayoutOneViewHolder)holder)
+                ((LayoutOneViewHolder) holder).setView(text);
+                ((LayoutOneViewHolder) holder)
                         .linearLayout.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
-                            public void onClick(View view)
-                            {
+                            public void onClick(View view) {
 
                                 Toast
                                         .makeText(
-                                                view.getContext(),text
+                                                view.getContext(), text
                                                 ,
                                                 Toast.LENGTH_SHORT)
                                         .show();
@@ -143,14 +133,13 @@ class LayoutTwoViewHolder
                 int image
                         = itemClassList.get(position).getIcon();
 
-                ((LayoutTwoViewHolder)holder)
+                ((LayoutTwoViewHolder) holder)
                         .setViews(image);
-                ((LayoutTwoViewHolder)holder)
+                ((LayoutTwoViewHolder) holder)
                         .linearLayout.setOnClickListener(
                         new View.OnClickListener() {
                             @Override
-                            public void onClick(View view)
-                            {
+                            public void onClick(View view) {
 
                                 Toast
                                         .makeText(
@@ -168,8 +157,7 @@ class LayoutTwoViewHolder
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return itemClassList.size();
     }
 }
